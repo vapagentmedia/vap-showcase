@@ -31,11 +31,10 @@ The system is designed to support multiple media providers and protocols under a
 
 ### Installation
 
-```bash
 pip install vape-client
 Basic Usage
 python
-Kodu kopyala
+
 from vape_client import VAPClient
 
 client = VAPClient(api_key="your_api_key")
