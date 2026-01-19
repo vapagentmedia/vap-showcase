@@ -1,7 +1,7 @@
 # VAP – Execution Control Layer for AI Agents
 
 **"VAP is where nondeterminism stops."**
-
+[![MCP Badge](https://lobehub.com/badge/mcp/elestirelbilinc-sketch-vap-showcase)](https://lobehub.com/mcp/elestirelbilinc-sketch-vap-showcase)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue)](https://registry.modelcontextprotocol.io)
 [![Version](https://img.shields.io/badge/version-1.12.4-blue.svg)](https://github.com/elestirelbilinc-sketch/vap-showcase/releases)
 [![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/)
