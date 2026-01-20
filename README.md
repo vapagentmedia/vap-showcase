@@ -271,4 +271,4 @@ MIT License – see the [LICENSE](LICENSE) file for details.
 
 **VAP – Flux, Veo, Suno MCP Server for AI Media Generation**
 
-*"Generate images, videos, and music with deterministic pricing."*
+*"Deterministic media production for AI agents."*
