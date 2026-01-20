@@ -242,7 +242,7 @@ print(f"Result: {task.result_url}")
 
 ---
 
-## The Three Guarantees
+## The Four Guarantees
 
 ### 1. Pre-Commit Pricing
 Every task has a known cost before execution. No surprises.
@@ -252,6 +252,9 @@ Set a max budget. VAP enforces it. Hit the limit? Task rejected. Balance protect
 
 ### 3. Failure Ownership
 Every task has an explicit owner. Every failure has an address. No more "the agent did something and I don't know what."
+
+### 4. Deterministic Production Quality
+Every output is normalized to broadcast standards. Consistent formats, predictable quality, publish-ready media. No variance between runs.
 
 ---
 
