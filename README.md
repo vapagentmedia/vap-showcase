@@ -27,9 +27,9 @@ Your AI agent needs to generate an image. It calls DALL-E. The call fails. It re
 VAP is an **MCP Server** that provides **Flux image generation**, **Veo 3.1 video generation**, and **Suno V5 music generation** with cost control.
 
 **Supported AI Models:**
-- **Flux2 Pro** – Photorealistic images ($0.18)
-- **Veo 3.1** – Cinematic videos ($1.96)
-- **Suno V5** – Original music ($0.68)
+- **Flux2 Pro** – Photorealistic images
+- **Veo 3.1** – Cinematic videos
+- **Suno V5** – Original music
 
 It enforces:
 - **Pre-commit pricing** – Know exact cost before execution
@@ -44,9 +44,9 @@ It enforces:
 ```
 Agent: "Generate an image of a sunset"
     ↓
-VAP: "That will cost $0.18. Reserving..."
+VAP: "Reserving cost..."
 VAP: "Reserved. Executing..."
-VAP: "Success. Burning $0.18. Here's your image."
+VAP: "Success. Here's your image."
 ```
 
 If it fails:
@@ -54,27 +54,29 @@ If it fails:
 ```
 Agent: "Generate an image of a sunset"
     ↓
-VAP: "That will cost $0.18. Reserving..."
+VAP: "Reserving cost..."
 VAP: "Reserved. Executing..."
-VAP: "Failed. Refunding $0.18. Error: Provider timeout"
+VAP: "Failed. Full refund. Error: Provider timeout"
 ```
 
 **Your agent never sees the complexity. It just gets deterministic results.**
 
 ---
 
-## Pricing
+## Presets
 
-| Type | Preset | Price |
-|------|--------|-------|
-| Image(Photorealistic) | `image.basic` 
-| Video(VEO3.1 | `video.basic` | 
-| Music(SUNO V5) | `music.basic` |
-| Campaign+SEO | `streaming_campaign` | 
-| Full Production+SEO | `full_production` | 
+| Type | Preset |
+|------|--------|
+| Image | `image.basic` |
+| Video | `video.basic` |
+| Music | `music.basic` |
+| Campaign+SEO | `streaming_campaign` |
+| Full Production+SEO | `full_production` |
 
-No surprises. No variable pricing. No "it depends."
 All media productions are automatically normalized and delivered through a fast, orchestrated pipeline in accordance with defined broadcast quality standards.
+
+**Pricing:** See [vapagent.com](https://vapagent.com) for current pricing.
+
 ---
 
 ## MCP Integration
@@ -145,7 +147,6 @@ from vape_client import VAPEClient
 
 client = VAPEClient(api_key="your_api_key")
 
-# Cost is pre-committed: $0.18
 result = client.generate(
     description="A serene mountain landscape at sunset"
 )
@@ -157,7 +158,7 @@ print(f"Cost: ${result.cost}")
 ### Video Generation
 
 ```python
-# Generate video with Veo 3.1 - $1.96
+# Generate video with Veo 3.1
 video = client.generate_video(
     prompt="Cinematic aerial shot of coastal cliffs at golden hour",
     duration=8,
@@ -176,7 +177,7 @@ print(f"Video URL: {task.result_url}")
 ### Music Generation
 
 ```python
-# Generate music with Suno V5 - $0.68
+# Generate music with Suno V5
 music = client.generate_music(
     prompt="Upbeat indie folk song with acoustic guitar and warm vocals",
     duration=120,
