@@ -1,32 +1,69 @@
-"""
+﻿"""
 VAP Python SDK
-Official Python client for VAP AI Generation API
+Official Python client for VAP AI Image Generation API
 """
 
 __version__ = "1.0.0"
 __author__ = "VAP Team"
 
-from .client import VAPClient
-from .models import GenerateResult, HealthStatus, Balance
+from .client import VAPEClient
+from .async_client import AsyncVAPEClient
+from .models import (
+    GenerateResult,
+    UpscaleResult,
+    ValidateResult,
+    HealthStatus,
+    Balance,
+    VideoResult,
+    MusicResult,
+    TaskResult,
+    TaskListResult,
+)
 from .exceptions import (
-    VAPError,
-    VAPAuthenticationError,
-    VAPInsufficientBalanceError,
-    VAPRateLimitError,
-    VAPValidationError,
-    VAPServerError,
+    VAPEError,
+    VAPEAuthenticationError,
+    VAPEInsufficientBalanceError,
+    VAPERateLimitError,
+    VAPEValidationError,
+    VAPEServerError,
+    VAPEConnectionError,
+    VAPETimeoutError,
+)
+from .webhooks import (
+    verify_webhook_signature,
+    generate_webhook_signature,
+    WebhookEvent,
+    WEBHOOK_EVENTS,
 )
 
 __all__ = [
+    # Version
     "__version__",
-    "VAPClient",
+    # Clients
+    "VAPEClient",
+    "AsyncVAPEClient",
+    # Models
     "GenerateResult",
+    "UpscaleResult",
+    "ValidateResult",
     "HealthStatus",
     "Balance",
-    "VAPError",
-    "VAPAuthenticationError",
-    "VAPInsufficientBalanceError",
-    "VAPRateLimitError",
-    "VAPValidationError",
-    "VAPServerError",
+    "VideoResult",
+    "MusicResult",
+    "TaskResult",
+    "TaskListResult",
+    # Exceptions
+    "VAPEError",
+    "VAPEAuthenticationError",
+    "VAPEInsufficientBalanceError",
+    "VAPERateLimitError",
+    "VAPEValidationError",
+    "VAPEServerError",
+    "VAPEConnectionError",
+    "VAPETimeoutError",
+    # Webhooks
+    "verify_webhook_signature",
+    "generate_webhook_signature",
+    "WebhookEvent",
+    "WEBHOOK_EVENTS",
 ]

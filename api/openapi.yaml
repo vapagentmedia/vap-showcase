@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: VAP API
   description: Visual Asset Production API for AI image and video generation
-  version: 1.6.0
+  version: 1.12.4
   license:
     name: MIT
 
@@ -27,7 +27,7 @@ paths:
                     example: healthy
                   version:
                     type: string
-                    example: 1.6.0
+                    example: 1.12.4
 
   /v3/generate:
     post:

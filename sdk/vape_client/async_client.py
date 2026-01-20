@@ -1,6 +1,6 @@
 """
-VAP Sync Client
-Synchronous HTTP client for VAP API
+VAP Async Client
+Asynchronous HTTP client for VAP API
 """
 
 import httpx
@@ -28,14 +28,14 @@ from .exceptions import (
 )
 
 
-class VAPEClient:
+class AsyncVAPEClient:
     """
-    Synchronous client for VAP API.
+    Asynchronous client for VAP API.
 
     Usage:
-        client = VAPEClient(api_key="vape_xxx...")
-        result = client.generate(description="A sunset")
-        print(result.image_url)
+        async with AsyncVAPEClient(api_key="vape_xxx...") as client:
+            result = await client.generate(description="A sunset")
+            print(result.image_url)
     """
 
     DEFAULT_BASE_URL = "https://api.vapagent.com"
@@ -49,7 +49,7 @@ class VAPEClient:
         max_retries: int = 3,
     ):
         """
-        Initialize VAP client.
+        Initialize async VAP client.
 
         Args:
             api_key: Your VAP API key (starts with vape_)
@@ -61,12 +61,7 @@ class VAPEClient:
         self.base_url = (base_url or self.DEFAULT_BASE_URL).rstrip("/")
         self.timeout = timeout or self.DEFAULT_TIMEOUT
         self.max_retries = max_retries
-
-        self._client = httpx.Client(
-            base_url=self.base_url,
-            timeout=self.timeout,
-            headers=self._default_headers(),
-        )
+        self._client: Optional[httpx.AsyncClient] = None
 
     def _default_headers(self) -> Dict[str, str]:
         """Get default request headers."""
@@ -75,6 +70,16 @@ class VAPEClient:
             "Content-Type": "application/json",
             "User-Agent": "vap-client-python/1.0.0",
         }
+
+    async def _get_client(self) -> httpx.AsyncClient:
+        """Get or create async HTTP client."""
+        if self._client is None:
+            self._client = httpx.AsyncClient(
+                base_url=self.base_url,
+                timeout=self.timeout,
+                headers=self._default_headers(),
+            )
+        return self._client
 
     def _handle_response(self, response: httpx.Response) -> dict:
         """Handle API response and raise appropriate exceptions."""
@@ -127,22 +132,22 @@ class VAPEClient:
                 response=data,
             )
 
-    def _request(
+    async def _request(
         self,
         method: str,
         endpoint: str,
         json: dict = None,
         params: dict = None,
     ) -> dict:
-        """Make HTTP request with retry logic."""
-        url = endpoint if endpoint.startswith("http") else endpoint
+        """Make async HTTP request with retry logic."""
+        client = await self._get_client()
         last_error = None
 
         for attempt in range(self.max_retries):
             try:
-                response = self._client.request(
+                response = await client.request(
                     method=method,
-                    url=url,
+                    url=endpoint,
                     json=json,
                     params=params,
                 )
@@ -160,11 +165,9 @@ class VAPEClient:
 
             except (VAPEAuthenticationError, VAPEInsufficientBalanceError,
                     VAPEValidationError) as e:
-                # Don't retry these errors
                 raise
 
             except VAPERateLimitError as e:
-                # Don't retry rate limit errors
                 raise
 
             except VAPEServerError as e:
@@ -177,31 +180,28 @@ class VAPEClient:
 
         raise last_error
 
-    def close(self):
-        """Close the HTTP client."""
-        self._client.close()
+    async def close(self):
+        """Close the async HTTP client."""
+        if self._client:
+            await self._client.aclose()
+            self._client = None
 
-    def __enter__(self):
+    async def __aenter__(self):
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close()
 
     # ============================================
     # API Methods
     # ============================================
 
-    def health(self) -> HealthStatus:
-        """
-        Check API health status.
-
-        Returns:
-            HealthStatus object
-        """
-        data = self._request("GET", "/v3/health")
+    async def health(self) -> HealthStatus:
+        """Check API health status."""
+        data = await self._request("GET", "/v3/health")
         return HealthStatus.from_response(data)
 
-    def generate(
+    async def generate(
         self,
         description: str,
         aspect_ratio: str = "1:1",
@@ -209,19 +209,7 @@ class VAPEClient:
         negative_prompt: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> GenerateResult:
-        """
-        Generate an image from description.
-
-        Args:
-            description: Text description of the image to generate
-            aspect_ratio: Image aspect ratio (1:1, 16:9, 9:16, 4:3, 3:4)
-            style: Optional style hints
-            negative_prompt: What to avoid in the image
-            metadata: Optional metadata to include
-
-        Returns:
-            GenerateResult with image_url and cost
-        """
+        """Generate an image from description."""
         payload = {
             "description": description,
             "aspect_ratio": aspect_ratio,
@@ -234,26 +222,16 @@ class VAPEClient:
         if metadata:
             payload["metadata"] = metadata
 
-        data = self._request("POST", "/v3/generate", json=payload)
+        data = await self._request("POST", "/v3/generate", json=payload)
         return GenerateResult.from_response(data)
 
-    def upscale(
+    async def upscale(
         self,
         image_url: Optional[str] = None,
         image_base64: Optional[str] = None,
         scale: str = "2x",
     ) -> UpscaleResult:
-        """
-        Upscale an image using AI enhancement.
-
-        Args:
-            image_url: URL of image to upscale
-            image_base64: Base64 encoded image data
-            scale: Upscale factor (2x or 4x)
-
-        Returns:
-            UpscaleResult with upscaled image
-        """
+        """Upscale an image using AI enhancement."""
         if not image_url and not image_base64:
             raise VAPEValidationError("Either image_url or image_base64 is required")
 
@@ -263,26 +241,16 @@ class VAPEClient:
         if image_base64:
             payload["image_base64"] = image_base64
 
-        data = self._request("POST", "/v3/upscale", json=payload)
+        data = await self._request("POST", "/v3/upscale", json=payload)
         return UpscaleResult.from_response(data)
 
-    def validate(
+    async def validate(
         self,
         image_url: Optional[str] = None,
         image_base64: Optional[str] = None,
         checks: Optional[List[str]] = None,
     ) -> ValidateResult:
-        """
-        Validate an image for format, size, and quality.
-
-        Args:
-            image_url: URL of image to validate
-            image_base64: Base64 encoded image data
-            checks: List of checks to perform (format, size, dimensions, content)
-
-        Returns:
-            ValidateResult with validation details
-        """
+        """Validate an image for format, size, and quality."""
         if not image_url and not image_base64:
             raise VAPEValidationError("Either image_url or image_base64 is required")
 
@@ -294,24 +262,19 @@ class VAPEClient:
         if checks:
             payload["checks"] = checks
 
-        data = self._request("POST", "/v3/validate", json=payload)
+        data = await self._request("POST", "/v3/validate", json=payload)
         return ValidateResult.from_response(data)
 
-    def get_balance(self) -> Balance:
-        """
-        Get current account balance.
-
-        Returns:
-            Balance object with current balance
-        """
-        data = self._request("GET", "/v3/balance")
+    async def get_balance(self) -> Balance:
+        """Get current account balance."""
+        data = await self._request("GET", "/v3/balance")
         return Balance.from_response(data)
 
     # ============================================
     # Video Generation (Veo 3.1) - $1.96
     # ============================================
 
-    def generate_video(
+    async def generate_video(
         self,
         prompt: str,
         duration: int = 8,
@@ -348,14 +311,14 @@ class VAPEClient:
         if negative_prompt:
             payload["params"]["negative_prompt"] = negative_prompt
 
-        data = self._request("POST", "/v3/tasks", json=payload)
+        data = await self._request("POST", "/v3/tasks", json=payload)
         return VideoResult.from_response(data)
 
     # ============================================
     # Music Generation (Suno V5) - $0.68
     # ============================================
 
-    def generate_music(
+    async def generate_music(
         self,
         prompt: str,
         duration: int = 120,
@@ -387,14 +350,14 @@ class VAPEClient:
             }
         }
 
-        data = self._request("POST", "/v3/tasks", json=payload)
+        data = await self._request("POST", "/v3/tasks", json=payload)
         return MusicResult.from_response(data)
 
     # ============================================
     # Task Management
     # ============================================
 
-    def get_task(self, task_id: str) -> TaskResult:
+    async def get_task(self, task_id: str) -> TaskResult:
         """
         Get the status and result of a generation task.
 
@@ -404,10 +367,10 @@ class VAPEClient:
         Returns:
             TaskResult with status and result_url when completed
         """
-        data = self._request("GET", f"/v3/tasks/{task_id}")
+        data = await self._request("GET", f"/v3/tasks/{task_id}")
         return TaskResult.from_response(data)
 
-    def list_tasks(
+    async def list_tasks(
         self,
         status: Optional[str] = None,
         limit: int = 10,
@@ -426,5 +389,5 @@ class VAPEClient:
         if status:
             params["status"] = status
 
-        data = self._request("GET", "/v3/tasks", params=params)
+        data = await self._request("GET", "/v3/tasks", params=params)
         return TaskListResult.from_response(data)

@@ -1,0 +1,229 @@
+{
+  "$schema": "https://registry.modelcontextprotocol.io/schemas/tools.json",
+  "version": "1.12.4",
+  "tools": [
+    {
+      "name": "generate_image",
+      "description": "Generate an AI image from text prompt using VAP (Flux2 Pro). Returns a task ID for async tracking. Cost: $0.18",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Detailed description of the image to generate"
+          },
+          "aspect_ratio": {
+            "type": "string",
+            "enum": ["1:1", "16:9", "9:16", "4:3", "3:4"],
+            "default": "1:1",
+            "description": "Output image aspect ratio"
+          },
+          "quality": {
+            "type": "string",
+            "enum": ["standard", "high"],
+            "default": "standard",
+            "description": "Generation quality (high costs 1.5x)"
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    {
+      "name": "generate_video",
+      "description": "Generate an AI video from text prompt using VAP (Veo 3.1). Returns a task ID for async tracking. Cost: $1.96. IMPORTANT: Send ONLY the video description. Do NOT include any instructions, guidelines, or meta-text.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "ONLY the visual description of the video. Example: 'Cinematic aerial shot of a coastal cliff at golden hour, warm sunlight, gentle waves, camera slowly drifting forward'"
+          },
+          "duration": {
+            "type": "integer",
+            "enum": [4, 6, 8],
+            "default": 8,
+            "description": "Video duration in seconds (4, 6, or 8)"
+          },
+          "aspect_ratio": {
+            "type": "string",
+            "enum": ["16:9", "9:16"],
+            "default": "16:9",
+            "description": "Video aspect ratio (landscape or portrait)"
+          },
+          "generate_audio": {
+            "type": "boolean",
+            "default": true,
+            "description": "Generate audio with the video"
+          },
+          "resolution": {
+            "type": "string",
+            "enum": ["720p", "1080p"],
+            "default": "720p",
+            "description": "Video resolution"
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "What to avoid in the video generation"
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    {
+      "name": "generate_music",
+      "description": "Generate AI music from text description using VAP (Suno V5). Returns a task ID for async tracking. Cost: $0.68. IMPORTANT: Send ONLY the music description. Do NOT include any instructions or meta-text.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Music description (200-500 chars recommended). Include genre, mood, instruments, tempo."
+          },
+          "instrumental": {
+            "type": "boolean",
+            "default": false,
+            "description": "Generate without vocals (instrumental only)"
+          },
+          "duration": {
+            "type": "integer",
+            "default": 120,
+            "minimum": 30,
+            "maximum": 480,
+            "description": "Target duration in seconds (30-480, default 120 = 2 min)"
+          },
+          "loudness_preset": {
+            "type": "string",
+            "enum": ["streaming", "apple", "broadcast"],
+            "default": "streaming",
+            "description": "Loudness normalization preset"
+          },
+          "audio_format": {
+            "type": "string",
+            "enum": ["mp3", "wav"],
+            "default": "mp3",
+            "description": "Output format"
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    {
+      "name": "get_task",
+      "description": "Get the status and result of a generation task. Returns media URL when completed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "description": "Task UUID returned from generate_image/video/music"
+          }
+        },
+        "required": ["task_id"]
+      }
+    },
+    {
+      "name": "list_tasks",
+      "description": "List recent generation tasks with optional status filter.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["pending", "processing", "completed", "failed"],
+            "description": "Filter by task status"
+          },
+          "limit": {
+            "type": "integer",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Maximum number of tasks to return"
+          }
+        }
+      }
+    },
+    {
+      "name": "check_balance",
+      "description": "Check VAP account balance. Returns available, reserved, and usable balances.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "estimate_cost",
+      "description": "Estimate the cost of an image generation before executing. Cost: $0.18",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "quality": {
+            "type": "string",
+            "enum": ["standard", "high"],
+            "default": "standard",
+            "description": "Generation quality level"
+          },
+          "num_outputs": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 4,
+            "description": "Number of images to generate"
+          }
+        }
+      }
+    },
+    {
+      "name": "estimate_video_cost",
+      "description": "Estimate the cost of a video generation. Cost: $1.96 (Veo 3.1)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "type": "integer",
+            "enum": [4, 6, 8],
+            "default": 8,
+            "description": "Video duration in seconds"
+          },
+          "generate_audio": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether audio will be generated"
+          },
+          "resolution": {
+            "type": "string",
+            "enum": ["720p", "1080p"],
+            "default": "720p",
+            "description": "Video resolution"
+          }
+        }
+      }
+    },
+    {
+      "name": "estimate_music_cost",
+      "description": "Estimate the cost of music generation. Cost: $0.68 (Suno V5)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "type": "integer",
+            "default": 120,
+            "minimum": 30,
+            "maximum": 480,
+            "description": "Music duration in seconds"
+          },
+          "audio_format": {
+            "type": "string",
+            "enum": ["mp3", "wav"],
+            "default": "mp3",
+            "description": "Output format"
+          }
+        }
+      }
+    }
+  ],
+  "pricing": {
+    "image": "$0.18",
+    "video": "$1.96",
+    "music": "$0.68"
+  }
+}

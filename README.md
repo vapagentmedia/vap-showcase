@@ -89,20 +89,39 @@ VAP is on the official **MCP Registry**: `io.github.elestirelbilinc-sketch/vap-e
 }
 ```
 
-### Available Tools (10)
+### Available Tools (9)
 
 | Tool | Description |
 |------|-------------|
 | `generate_image` | Generate AI image ($0.18) |
-| `generate_video` | Generate AI video(Veo3.1) ($1.96) |
-| `generate_music` | Generate AI music(SunoV5) ($0.68) |
+| `generate_video` | Generate AI video (Veo 3.1) ($1.96) |
+| `generate_music` | Generate AI music (Suno V5) ($0.68) |
 | `estimate_cost` | Get image generation cost |
 | `estimate_video_cost` | Get video generation cost |
 | `estimate_music_cost` | Get music generation cost |
 | `check_balance` | Check account balance |
 | `get_task` | Get task status by ID |
 | `list_tasks` | List recent tasks |
-| `execute_preset` | Execute named preset |
+
+### Local MCP Proxy
+
+For Claude Desktop with local proxy:
+
+```json
+{
+  "mcpServers": {
+    "vap": {
+      "command": "python",
+      "args": ["/path/to/vap_mcp_proxy.py"],
+      "env": {
+        "VAP_API_KEY": "your_api_key"
+      }
+    }
+  }
+}
+```
+
+See `mcp/vap_mcp_proxy.py` for the proxy implementation.
 
 ---
 
@@ -111,41 +130,95 @@ VAP is on the official **MCP Registry**: `io.github.elestirelbilinc-sketch/vap-e
 ### Installation
 
 ```bash
-pip install vape-client
+pip install vap-sdk
 ```
 
-### Basic Usage
+### Image Generation
 
 ```python
-from vape_client import VAPClient
+from vape_client import VAPEClient
 
-client = VAPClient(api_key="your_api_key")
+client = VAPEClient(api_key="your_api_key")
 
 # Cost is pre-committed: $0.18
-result = client.generate_image(
-    prompt="A serene mountain landscape at sunset"
+result = client.generate(
+    description="A serene mountain landscape at sunset"
 )
 
-print(f"Image URL: {result.url}")
+print(f"Image URL: {result.image_url}")
 print(f"Cost: ${result.cost}")
+```
+
+### Video Generation
+
+```python
+# Generate video with Veo 3.1 - $1.96
+video = client.generate_video(
+    prompt="Cinematic aerial shot of coastal cliffs at golden hour",
+    duration=8,
+    aspect_ratio="16:9",
+    generate_audio=True
+)
+
+print(f"Task ID: {video.task_id}")
+
+# Poll for completion
+task = client.get_task(video.task_id)
+print(f"Status: {task.status}")
+print(f"Video URL: {task.result_url}")
+```
+
+### Music Generation
+
+```python
+# Generate music with Suno V5 - $0.68
+music = client.generate_music(
+    prompt="Upbeat indie folk song with acoustic guitar and warm vocals",
+    duration=120,
+    instrumental=False
+)
+
+print(f"Task ID: {music.task_id}")
+
+# Check task status
+task = client.get_task(music.task_id)
+print(f"Audio URL: {task.result_url}")
 ```
 
 ### Async Usage
 
 ```python
 import asyncio
-from vape_client import AsyncVAPClient
+from vape_client import AsyncVAPEClient
 
 async def main():
-    client = AsyncVAPClient(api_key="your_api_key")
+    async with AsyncVAPEClient(api_key="your_api_key") as client:
+        # Image
+        image = await client.generate(description="A futuristic cityscape")
+        print(f"Image URL: {image.image_url}")
 
-    # Budget enforced, retries limited
-    result = await client.generate_image(
-        prompt="A futuristic cityscape"
-    )
-    print(f"Image URL: {result.url}")
+        # Video
+        video = await client.generate_video(prompt="Ocean waves at sunset")
+        print(f"Video Task: {video.task_id}")
+
+        # Music
+        music = await client.generate_music(prompt="Lo-fi chill beats")
+        print(f"Music Task: {music.task_id}")
 
 asyncio.run(main())
+```
+
+### Task Management
+
+```python
+# List recent tasks
+tasks = client.list_tasks(limit=10)
+for task in tasks.tasks:
+    print(f"{task.task_id}: {task.status} - {task.task_type}")
+
+# Get specific task
+task = client.get_task("your-task-id")
+print(f"Result: {task.result_url}")
 ```
 
 ---
