@@ -62,11 +62,11 @@ VAP: "Failed. Refunding $0.18. Error: Provider timeout"
 
 | Type | Preset | Price |
 |------|--------|-------|
-| Image(Photorealistic) | `image.basic` | **$0.18** |
-| Video(VEO3.1 | `video.basic` | **$1.96** |
-| Music(SUNO V5) | `music.basic` | **$0.68** |
-| Campaign | `streaming_campaign` | **$5.90** |
-| Full Production | `full_production` | **$7.90** |
+| Image(Photorealistic) | `image.basic` 
+| Video(VEO3.1 | `video.basic` | 
+| Music(SUNO V5) | `music.basic` |
+| Campaign+SEO | `streaming_campaign` | 
+| Full Production+SEO | `full_production` | 
 
 No surprises. No variable pricing. No "it depends."
 All media productions are automatically normalized and delivered through a fast, orchestrated pipeline in accordance with defined broadcast quality standards.
@@ -93,9 +93,9 @@ VAP is on the official **MCP Registry**: `io.github.elestirelbilinc-sketch/vap-e
 
 | Tool | Description |
 |------|-------------|
-| `generate_image` | Generate AI image ($0.18) |
-| `generate_video` | Generate AI video (Veo 3.1) ($1.96) |
-| `generate_music` | Generate AI music (Suno V5) ($0.68) |
+| `generate_image` | Generate AI image 
+| `generate_video` | Generate AI video (Veo 3.1) 
+| `generate_music` | Generate AI music (Suno V5) 
 | `estimate_cost` | Get image generation cost |
 | `estimate_video_cost` | Get video generation cost |
 | `estimate_music_cost` | Get music generation cost |
