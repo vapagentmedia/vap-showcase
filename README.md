@@ -1,6 +1,6 @@
-# VAP – Media Execution Control Layer for AI Agents
+# VAP – Flux, Veo, Suno MCP Server for AI Agents
 
-**"VAP is where nondeterminism stops."**
+**Generate AI images (Flux), videos (Veo 3.1), and music (Suno V5) with deterministic pricing.**
 [![MCP Badge](https://lobehub.com/badge/mcp/elestirelbilinc-sketch-vap-showcase)](https://lobehub.com/mcp/elestirelbilinc-sketch-vap-showcase)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue)](https://registry.modelcontextprotocol.io)
 [![Version](https://img.shields.io/badge/version-1.12.4-blue.svg)](https://github.com/elestirelbilinc-sketch/vap-showcase/releases)
@@ -24,7 +24,12 @@ Your AI agent needs to generate an image. It calls DALL-E. The call fails. It re
 
 ## The Solution
 
-VAP is an **Execution Control Layer** that sits between AI agents and paid external APIs.
+VAP is an **MCP Server** that provides **Flux image generation**, **Veo 3.1 video generation**, and **Suno V5 music generation** with cost control.
+
+**Supported AI Models:**
+- **Flux2 Pro** – Photorealistic images ($0.18)
+- **Veo 3.1** – Cinematic videos ($1.96)
+- **Suno V5** – Original music ($0.68)
 
 It enforces:
 - **Pre-commit pricing** – Know exact cost before execution
@@ -263,6 +268,6 @@ MIT License – see the [LICENSE](LICENSE) file for details.
 
 ---
 
-**VAP – Execution Control Layer for AI Agents**
+**VAP – Flux, Veo, Suno MCP Server for AI Media Generation**
 
-*"VAP is where nondeterminism stops."*
+*"Generate images, videos, and music with deterministic pricing."*
