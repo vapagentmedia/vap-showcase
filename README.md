@@ -81,45 +81,68 @@ All media productions are automatically normalized and delivered through a fast,
 
 ## MCP Integration
 
-VAP is on the official **MCP Registry**: `io.github.elestirelbilinc-sketch/vap-e`
+### Step 1: Get Your API Key
 
-### Claude Desktop Configuration
+```bash
+curl -X POST https://api.vapagent.com/v3/agents \
+  -H "Content-Type: application/json" \
+  -d '{"name": "my-agent"}'
+```
+
+Save the `api_key` from the response. It's shown only once.
+
+### Step 2: Activate Your Account
+
+Deposit minimum $1 to unlock generation capabilities:
+
+```bash
+curl -X POST https://api.vapagent.com/v3/deposits/init \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{"amount": 5.00, "provider": "crypto"}'
+```
+
+### Step 3: Configure Claude Desktop
+
+Add to `claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "vap": {
       "url": "https://api.vapagent.com/mcp",
-      "transport": "streamable-http"
+      "transport": "streamable-http",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY"
+      }
     }
   }
 }
 ```
 
-### Available Tools (9)
+Restart Claude Desktop. You're ready.
 
-| Tool | Description |
-|------|-------------|
-| `generate_image` | Generate AI image 
-| `generate_video` | Generate AI video (Veo 3.1) 
-| `generate_music` | Generate AI music (Suno V5) 
-| `estimate_cost` | Get image generation cost |
-| `estimate_video_cost` | Get video generation cost |
-| `estimate_music_cost` | Get music generation cost |
-| `check_balance` | Check account balance |
-| `get_task` | Get task status by ID |
-| `list_tasks` | List recent tasks |
+### Available Tools
 
-### Local MCP Proxy
+| Tool | What it does |
+|------|--------------|
+| `generate_image` | Create photorealistic image from text (Flux2 Pro) |
+| `generate_video` | Create cinematic video from text (Veo 3.1) |
+| `generate_music` | Create original music from text (Suno V5) |
+| `estimate_cost` | Preview cost before generating |
+| `check_balance` | Check your current balance |
+| `get_task` | Check status of a running task |
+| `list_tasks` | List your recent tasks |
 
-For Claude Desktop with local proxy:
+### Alternative: Local Proxy
+
+For environments that don't support `headers`, use the local proxy:
 
 ```json
 {
   "mcpServers": {
     "vap": {
       "command": "python",
-      "args": ["/path/to/vap_mcp_proxy.py"],
+      "args": ["/path/to/mcp/vap_mcp_proxy.py"],
       "env": {
         "VAP_API_KEY": "your_api_key"
       }
@@ -128,7 +151,7 @@ For Claude Desktop with local proxy:
 }
 ```
 
-See `mcp/vap_mcp_proxy.py` for the proxy implementation.
+**MCP Registry:** `io.github.elestirelbilinc-sketch/vap-e`
 
 ---
 
