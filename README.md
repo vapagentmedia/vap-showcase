@@ -1,4 +1,4 @@
-# VAP – Execution Control Layer for AI Agents
+# VAP – Media Execution Control Layer for AI Agents
 
 **"VAP is where nondeterminism stops."**
 [![MCP Badge](https://lobehub.com/badge/mcp/elestirelbilinc-sketch-vap-showcase)](https://lobehub.com/mcp/elestirelbilinc-sketch-vap-showcase)
