@@ -43,6 +43,11 @@ VAP is an **MCP Server** that provides **Flux image generation**, **Veo 3.1 vide
 - **Veo 3.1** – Cinematic videos
 - **Suno V5** – Original music
 
+**Production Pipeline:**
+- FFmpeg post-processing (format conversion, audio normalization)
+- Automatic quality optimization for broadcast standards
+- Permanent cloud storage with instant CDN delivery
+
 **How it works:**
 - **Pre-commit pricing** – Know exact cost before execution
 - **Reserve → Burn → Refund** – Hard budget guarantees
