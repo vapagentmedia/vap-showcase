@@ -6,6 +6,17 @@
 [![Version](https://img.shields.io/badge/version-1.12.4-blue.svg)](https://github.com/elestirelbilinc-sketch/vap-showcase/releases)
 [![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
+[![Get Started](https://img.shields.io/badge/Get%20Started-Dashboard-6366f1)](https://vapagent.com/dashboard/signup.html)
+
+---
+
+## Get Started
+
+**No setup required – start generating in 2 minutes:**
+
+1. **[Create Agent](https://vapagent.com/dashboard/signup.html)** → Get your API key instantly
+2. **[Add Funds](https://vapagent.com/dashboard/deposit.html)** → Pay with crypto (USDT/USDC/BTC/ETH)
+3. **Generate** → Image $0.18 | Video $1.96 | Music $0.68
 
 ---
 
@@ -82,6 +93,12 @@ All media productions are automatically normalized and delivered through a fast,
 ## MCP Integration
 
 ### Step 1: Get Your API Key
+
+**Option A: Dashboard (Recommended)**
+
+Go to **[vapagent.com/dashboard/signup.html](https://vapagent.com/dashboard/signup.html)** and create your agent.
+
+**Option B: API**
 
 ```bash
 curl -X POST https://api.vapagent.com/v3/agents \
