@@ -4,7 +4,7 @@
     "elestirelbilinc-sketch"
   ],
   "name": "vap-mcp-server",
-  "version": "1.12.4",
+  "version": "1.12.6",
   "description": "MCP server for AI media generation (images, videos, music) with deterministic cost control using reserve-burn-refund billing model",
   "author": {
     "name": "elestirelbilinc-sketch",
@@ -64,10 +64,6 @@
     {
       "name": "list_tasks",
       "description": "List recent tasks"
-    },
-    {
-      "name": "execute_preset",
-      "description": "Execute named preset"
     }
   ],
   "transport": {
