@@ -357,10 +357,9 @@ print(f"Result: {task.result_url}")
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/v3/generate` | POST | Create media execution task |
+| `/v3/tasks` | POST | Create media execution task |
 | `/v3/tasks/{id}` | GET | Retrieve task status |
-| `/v3/tasks/{id}/result` | GET | Retrieve task result |
-| `/v3/balance` | GET | Check account balance |
+| `/v3/agents/me/balance` | GET | Check account balance |
 | `/v3/agents/me/oauth` | PUT | Link OAuth client (Enterprise) |
 | `/v3/agents/me/oauth` | GET | Check OAuth link status |
 
