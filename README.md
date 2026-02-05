@@ -3,7 +3,7 @@
 **Generate AI images, videos, and music with deterministic pricing.**
 [![MCP Badge](https://lobehub.com/badge/mcp/elestirelbilinc-sketch-vap-showcase)](https://lobehub.com/mcp/elestirelbilinc-sketch-vap-showcase)
 [![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue)](https://registry.modelcontextprotocol.io)
-[![Version](https://img.shields.io/badge/version-1.12.6-blue.svg)](https://github.com/vapagentmedia/vap-showcase/releases)
+[![Version](https://img.shields.io/badge/version-1.13.0-blue.svg)](https://github.com/vapagentmedia/vap-showcase/releases)
 [![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 [![Get Started](https://img.shields.io/badge/Get%20Started-Dashboard-6366f1)](https://vapagent.com/dashboard/signup.html)
