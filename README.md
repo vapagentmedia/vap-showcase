@@ -363,7 +363,7 @@ print(f"Result: {task.result_url}")
 | `/v3/agents/me/oauth` | PUT | Link OAuth client (Enterprise) |
 | `/v3/agents/me/oauth` | GET | Check OAuth link status |
 
-**Full API Docs:** [api.vapagent.com/docs](https://api.vapagent.com/docs)
+**Full API Docs:** [vapagent.com/quick-start.html](https://vapagent.com/quick-start.html)
 
 ---
 
@@ -386,7 +386,7 @@ Every output is normalized to broadcast standards. Consistent formats, predictab
 ## Links
 
 - **MCP Registry:** [registry.modelcontextprotocol.io](https://registry.modelcontextprotocol.io)
-- **API Documentation:** [api.vapagent.com/docs](https://api.vapagent.com/docs)
+- **API Documentation:** [vapagent.com/quick-start.html](https://vapagent.com/quick-start.html)
 - **MCP Endpoint:** `https://api.vapagent.com/mcp`
 
 ---
