@@ -48,6 +48,7 @@ VAP is an **MCP Server** that provides **Flux image generation**, **Veo 3.1 vide
 - FFmpeg post-processing (format conversion, audio normalization)
 - Automatic quality optimization for broadcast standards
 - Permanent cloud storage with instant CDN delivery
+- Aspect ratio auto-detection from prompt (e.g. "16:9 landscape" → correct dimensions)
 
 **How it works:**
 - **Pre-commit pricing** – Know exact cost before execution
@@ -97,6 +98,22 @@ All media productions are automatically normalized and delivered through a fast,
 
 ---
 
+## Try It Free
+
+Generate an image with zero signup — no API key, no deposit:
+
+```bash
+curl -X POST https://api.vapagent.com/v3/trial/generate \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "A mountain landscape at sunset, photorealistic"}'
+```
+
+Rate limit: 3 images per day per IP.
+
+Ready for more? Create an agent below.
+
+---
+
 ## MCP Integration
 
 ### Step 1: Get Your API Key
@@ -110,7 +127,7 @@ Go to **[vapagent.com/dashboard/signup.html](https://vapagent.com/dashboard/sign
 ```bash
 curl -X POST https://api.vapagent.com/v3/agents \
   -H "Content-Type: application/json" \
-  -d '{"name": "my-agent"}'
+  -d '{"Name": "my-agent"}'
 ```
 
 Save the `api_key` from the response. It's shown only once.
@@ -188,13 +205,21 @@ Restart your client after configuration.
 ### Available Tools
 
 | Tool | What it does |
-|------|--------------|
-| `generate_image` | Create photorealistic image from text (Flux2 Pro) |
+|------|-------------|
+| `generate_image` | Create AI image from text prompt |
 | `generate_video` | Create cinematic video from text (Veo 3.1) |
 | `generate_music` | Create original music from text (Suno V5) |
-| `estimate_cost` | Preview cost before generating |
+| `upscale` | Upscale image resolution (2x/4x) |
+| `background_remove` | Remove image background |
+| `inpaint` | Edit specific regions of an image |
+| `video_trim` | Trim video to specific time range |
+| `video_merge` | Merge multiple video clips |
+| `estimate_cost` | Preview image generation cost |
+| `estimate_video_cost` | Preview video generation cost |
+| `estimate_music_cost` | Preview music generation cost |
 | `check_balance` | Check your current balance |
-| `get_task` | Check status of a running task |
+| `get_task` | Check status of a generation task |
+| `get_operation` | Check status of an edit operation |
 | `list_tasks` | List your recent tasks |
 
 ### Alternative: Local Proxy
@@ -357,11 +382,18 @@ print(f"Result: {task.result_url}")
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/v3/tasks` | POST | Create media execution task |
-| `/v3/tasks/{id}` | GET | Retrieve task status |
+| `/v3/agents` | POST | Register new agent |
 | `/v3/agents/me/balance` | GET | Check account balance |
 | `/v3/agents/me/oauth` | PUT | Link OAuth client (Enterprise) |
 | `/v3/agents/me/oauth` | GET | Check OAuth link status |
+| `/v3/tasks` | POST | Create media generation task |
+| `/v3/tasks/{id}` | GET | Retrieve task status |
+| `/v3/execute` | POST | Execute preset (campaign/production) |
+| `/v3/operations` | POST | Run edit operation (upscale, bg_remove, etc.) |
+| `/v3/operations/{id}` | GET | Check operation status |
+| `/v3/deposits/init` POST | Initialize deposit |
+| `/v3/trial/generate` | POST | Free trial image (no auth) |
+| `/mcp` | - | MCP streamable-http endpoint |
 
 **Full API Docs:** [vapagent.com/quick-start.html](https://vapagent.com/quick-start.html)
 
