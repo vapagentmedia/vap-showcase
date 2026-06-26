@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.elestirelbilinc-sketch/vap-e",
-  "description": "AI image, video & music generation. Flux, Veo 3.1, Suno V5. Free tier included.",
+  "description": "VAP AI Media API MCP server for agent workflows. Connect Claude Desktop and MCP-compatible clients to VAP image, video, and music generation.",
   "repository": {
     "url": "https://github.com/vapagentmedia/vap-showcase",
     "source": "github"

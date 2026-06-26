@@ -4,7 +4,7 @@
   "tools": [
     {
       "name": "generate_image",
-      "description": "Generate an AI image from text prompt using VAP (Flux2 Pro). Returns a task ID for async tracking. Cost: $0.18",
+      "description": "Generate an image from a text prompt using VAP Media API. Returns a task ID for async tracking.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -30,7 +30,7 @@
     },
     {
       "name": "generate_video",
-      "description": "Generate an AI video from text prompt using VAP (Veo 3.1). Returns a task ID for async tracking. Cost: $1.96. IMPORTANT: Send ONLY the video description. Do NOT include any instructions, guidelines, or meta-text.",
+      "description": "Generate a video from a text prompt using VAP Media API. Returns a task ID for async tracking. IMPORTANT: Send ONLY the video description. Do NOT include any instructions, guidelines, or meta-text.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -71,7 +71,7 @@
     },
     {
       "name": "generate_music",
-      "description": "Generate AI music from text description using VAP (Suno V5). Returns a task ID for async tracking. Cost: $0.68. IMPORTANT: Send ONLY the music description. Do NOT include any instructions or meta-text.",
+      "description": "Generate music from a text description using VAP Media API. Returns a task ID for async tracking. IMPORTANT: Send ONLY the music description. Do NOT include any instructions or meta-text.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -152,7 +152,7 @@
     },
     {
       "name": "estimate_cost",
-      "description": "Estimate the cost of an image generation before executing. Cost: $0.18",
+      "description": "Estimate the cost of an image generation before executing.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -174,7 +174,7 @@
     },
     {
       "name": "estimate_video_cost",
-      "description": "Estimate the cost of a video generation. Cost: $1.96 (Veo 3.1)",
+      "description": "Estimate the cost of a video generation.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -200,7 +200,7 @@
     },
     {
       "name": "estimate_music_cost",
-      "description": "Estimate the cost of music generation. Cost: $0.68 (Suno V5)",
+      "description": "Estimate the cost of music generation.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -222,8 +222,6 @@
     }
   ],
   "pricing": {
-    "image": "$0.18",
-    "video": "$1.96",
-    "music": "$0.68"
+    "current": "https://vapagent.com/developer/"
   }
 }

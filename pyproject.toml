@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "vap-mcp-server"
-version = "1.12.6"
-description = "MCP server for AI media generation (images, videos, music) with deterministic cost control"
+version = "1.14.1"
+description = "VAP AI Media API MCP server for agent workflows"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -15,6 +15,9 @@ authors = [
 keywords = [
     "mcp",
     "ai",
+    "vap",
+    "vapagent",
+    "media-api",
     "media-generation",
     "image-generation",
     "video-generation",
@@ -35,8 +38,8 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://vapagent.com"
-Documentation = "https://api.vapagent.com/docs"
-Repository = "https://github.com/elestirelbilinc-sketch/vap-showcase"
+Documentation = "https://vapagent.com/developer/"
+Repository = "https://github.com/vapagentmedia/vap-showcase"
 
 [project.scripts]
 vap-mcp = "mcp.vap_mcp_proxy:main"

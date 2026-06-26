@@ -4,10 +4,10 @@
     "elestirelbilinc-sketch"
   ],
   "name": "vap-mcp-server",
-  "version": "1.12.6",
-  "description": "MCP server for AI media generation (images, videos, music) with deterministic cost control using reserve-burn-refund billing model",
+  "version": "1.14.1",
+  "description": "VAP AI Media API MCP server for agent workflows. Connect MCP-compatible clients to VAP image, video, and music generation.",
   "author": {
-    "name": "VAP Media",
+    "name": "VAP AI",
     "url": "https://github.com/vapagentmedia"
   },
   "repository": {
@@ -15,7 +15,7 @@
     "url": "https://github.com/vapagentmedia/vap-showcase"
   },
   "homepage": "https://api.vapagent.com",
-  "documentation": "https://api.vapagent.com/docs",
+  "documentation": "https://vapagent.com/developer/",
   "license": "MIT",
   "keywords": [
     "mcp",
@@ -24,22 +24,23 @@
     "image-generation",
     "video-generation",
     "music-generation",
-    "cost-control",
-    "budget",
-    "execution-control"
+    "media-api",
+    "ai-room",
+    "agent-workflows",
+    "developer-tools"
   ],
   "tools": [
     {
       "name": "generate_image",
-      "description": "Generate AI image with deterministic $0.18 cost"
+      "description": "Generate an image through VAP Media API"
     },
     {
       "name": "generate_video",
-      "description": "Generate AI video (Veo 3.1) with deterministic $1.96 cost"
+      "description": "Generate a video through VAP Media API"
     },
     {
       "name": "generate_music",
-      "description": "Generate AI music (Suno V5) with deterministic $0.68 cost"
+      "description": "Generate music through VAP Media API"
     },
     {
       "name": "estimate_cost",

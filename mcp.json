@@ -1,32 +1,29 @@
 {
   "$schema": "https://registry.modelcontextprotocol.io/schemas/server.json",
   "name": "vap-e",
-  "version": "1.12.4",
-  "description": "Flux, Veo, Suno MCP Server - AI Media Generation with Cost Control. Generate images (Flux2 Pro $0.18), videos (Veo 3.1 $1.96), music (Suno V5 $0.68). Reserve-burn-refund billing. No runaway costs, deterministic pricing for AI agents.",
+  "version": "1.14.1",
+  "description": "VAP AI Media API MCP server for agent workflows. Connect MCP-compatible clients to VAP image, video, and music generation.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elestirelbilinc-sketch/vap-showcase"
+    "url": "https://github.com/vapagentmedia/vap-showcase"
   },
   "homepage": "https://vapagent.com",
   "author": {
-    "name": "elestirelbilinc-sketch"
+    "name": "VAP AI"
   },
   "license": "MIT",
   "keywords": [
     "mcp",
-    "flux",
-    "veo",
-    "suno",
-    "ai-media",
+    "vap",
+    "vapagent",
+    "ai-room",
+    "media-api",
     "image-generation",
     "video-generation",
     "music-generation",
-    "flux2-pro",
-    "veo-3",
-    "suno-v5",
-    "cost-control",
+    "agent-workflows",
     "claude-desktop",
-    "media-api"
+    "developer-tools"
   ],
   "categories": [
     "media",
@@ -39,27 +36,27 @@
   "tools": [
     {
       "name": "generate_image",
-      "description": "Generate AI image with Flux2 Pro ($0.18)"
+      "description": "Generate an image through VAP Media API"
     },
     {
       "name": "generate_video",
-      "description": "Generate AI video with Veo 3.1 ($1.96)"
+      "description": "Generate a video through VAP Media API"
     },
     {
       "name": "generate_music",
-      "description": "Generate AI music with Suno V5 ($0.68)"
+      "description": "Generate music through VAP Media API"
     },
     {
       "name": "estimate_cost",
-      "description": "Get image cost estimate ($0.18)"
+      "description": "Estimate image generation cost"
     },
     {
       "name": "estimate_video_cost",
-      "description": "Get video cost estimate ($1.96)"
+      "description": "Estimate video generation cost"
     },
     {
       "name": "estimate_music_cost",
-      "description": "Get music cost estimate ($0.68)"
+      "description": "Estimate music generation cost"
     },
     {
       "name": "check_balance",
