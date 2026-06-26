@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="VAP AI Saraswati emblem" width="120">
+</p>
+
 # VAP AI
 
 Agent-native AI platform for AI Room, Media API, and Coding Plan API.
