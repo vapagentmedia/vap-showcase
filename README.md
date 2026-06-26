@@ -24,6 +24,7 @@ Unified generation API for image, video, and music workflows. Current public mod
 - Developer Hub: https://vapagent.com/developer/
 - API base URL: `https://api.vapagent.com/api/v1`
 - Create generation: `POST /api/v1/generations`
+- Create operation: `POST /api/v1/operations`
 - Authentication: product-scoped VAP Media API key
 - MCP endpoint: `https://api.vapagent.com/mcp`
 
@@ -94,11 +95,14 @@ curl -X POST https://api.vapagent.com/v1/chat/completions \
   -d '{"model":"vap-code","messages":[{"role":"user","content":"Review this patch."}]}'
 ```
 
-## Compatibility
+## Current Product Contracts
 
-Older `/v3/execute`, `/v3/tasks`, and MCP tool contracts remain available for existing integrations and registry clients. New builds should start from the current product contracts in Developer Hub:
+Use these current public contracts from Developer Hub:
 
 - Media API: `https://api.vapagent.com/api/v1`
+- Media generation: `POST /api/v1/generations`
+- Media operations: `POST /api/v1/operations`
+- MCP: `https://api.vapagent.com/mcp`
 - Coding Plan API: `https://api.vapagent.com/v1`
 
 ## Discovery Files
